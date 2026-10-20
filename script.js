@@ -16,14 +16,23 @@
   })
 
   cw1.addEventListener("click", async function () {
-    answer.textContent = 'Loading...';
+    answer.textContent = 'Processing...';
     
-    const selectValue = select.value;
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${selectValue}`);
+    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/`, {
+        method: 'POST',
+        body: JSON.stringify({
+            title: 'Przykładowy nowy post',
+            body: 'Przykładowa treść posta',
+            userId: 1
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
     const json = await response.json();
 
-    let result = `<h3 id='${json.id}'>${json.title}</h3> <p>${json.body}</p>`;
-    
+    let result = `Dodano nowy post o ID = ${json.id}`;
+
     answer.innerHTML = result;
   })
 
