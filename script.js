@@ -4,6 +4,7 @@
   const cw2 = document.getElementById('cw2')
   const cw3 = document.getElementById('cw3')
   const answer = document.getElementById('answer')
+  const select = document.getElementById('select')
 
   example.addEventListener("click", function () {
     fetch('https://jsonplaceholder.typicode.com/posts')
@@ -17,17 +18,12 @@
   cw1.addEventListener("click", async function () {
     answer.textContent = 'Loading...';
     
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const selectValue = select.value;
+    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${selectValue}`);
     const json = await response.json();
 
-    let result = "<ul>";
-
-    json.map(post => {
-        result += `<li id='${post.id}'>${post.title}: ${post.body}</li>`
-    })
-
-    result += "</ul>";
-
+    let result = `<h3 id='${json.id}'>${json.title}</h3> <p>${json.body}</p>`;
+    
     answer.innerHTML = result;
   })
 
