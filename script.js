@@ -14,8 +14,19 @@
       })
   })
 
-  cw1.addEventListener("click", function () {
-    //TODO
+  cw1.addEventListener("click", async function () {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const json = await response.json();
+
+    let result = "<ul>";
+
+    json.map(post => {
+        result += `<li id='${post.id}'>${post.title}: ${post.body}</li>`
+    })
+
+    result += "</ul>";
+
+    answer.innerHTML = result;
   })
 
   cw2.addEventListener("click", function () {
